@@ -1,7 +1,7 @@
-function theta = linear_regression(X, y)
+function theta = logistic_regression(X, y)
 
 	current_loss = 10^10;
-	learning_rate = .001;
+	learning_rate = .01;
 
 	m = rows(X);
 	theta = rand(m, 1);
@@ -10,14 +10,12 @@ function theta = linear_regression(X, y)
 
 	while(continue_gradient)
 		#hypothesis of x parameterized by theta	
-		hX = (theta' * X)';
+		Z = (theta' * X)';
 
-		loss = hX .- y;
+		#the sigmoid function (also known as the logisitic function) will normalize our predictions to 0 < y^ < 1
+		hX = arrayfun(@sigmoid, Z);
 
-		squared_loss = loss .^ 2;
-		sum_loss = sum(squared_loss, 'native');
-
-		J_theta = (1 / (2 * m)) * sum_loss;
+		J_theta = (1 / m) * ((-y' * log(hX)) - ((1-y)' * log(1 - hX)));
 
 		#current loss.  compare to previous loss to see if loss has decreased.  if not, do not update theta.
 		if( J_theta >= current_loss)
