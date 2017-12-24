@@ -4,7 +4,7 @@ function q = predict(x, theta)
 
 	#theta is not invertible. must be multiplied in this order
 
-	hypothesis = x_predict * theta;
+	hypothesis = theta' * x
 
 	return;
 endfunction
