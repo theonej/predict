@@ -19,6 +19,10 @@ train_numpy = np.array(train_features)
 label_values = []
 for row in range(len(train_labels)):
 	index = train_labels[row].index(1)
+	if(index != 2):
+		index = 0
+	else:
+		index = 1
 	label_values.append(index)
 
 

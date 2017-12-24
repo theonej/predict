@@ -2,12 +2,14 @@ function theta = logistic_regression(X, y)
 
 	current_loss = 10^10;
 	learning_rate = .01;
+	maximum_epochs = 100000;
 
 	m = rows(X);
 	theta = rand(m, 1);
 
 	continue_gradient = true
 
+	epoch = 0;
 	while(continue_gradient)
 		#hypothesis of x parameterized by theta	
 		Z = (theta' * X)';
@@ -28,7 +30,11 @@ function theta = logistic_regression(X, y)
 
 		#update theta
 		theta = theta - ((learning_rate / m) * X * (hX - y))
-	
+		
+		epoch+=1;
+		if(epoch >= maximum_epochs)
+			continue_gradient = false;
+		endif
 	endwhile
 
 endfunction
